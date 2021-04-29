@@ -1,21 +1,73 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Provider as PaperProvider } from 'react-native-paper';
+import AppNavigation from './src/navigation/AppNavigation';
+import Login from './src/screens/Login';
+import AuthContext from './src/context/AuthContext';
+import { getTokenApi, setTokenApi, removeTokenApi } from './src/api/token';
+import { View, ActivityIndicator } from 'react-native';
 
 export default function App() {
+
+  const [auth, setAuth] = useState(undefined);
+
+  useEffect(() => {
+
+    (async () => {
+
+      const token = await getTokenApi();
+
+      if (token) {
+
+        setAuth({ token });
+
+      } else {
+        setAuth(null);
+      }
+
+    })()
+
+  }, []);
+
+  const login = (data) => {
+
+    setTokenApi(data.token);
+
+    setAuth({ token: data.token });
+
+  }
+
+  const logout = () => {
+    if (auth) {
+      removeTokenApi();
+      setAuth(null);
+    }
+  }
+
+  const authData = useMemo(
+    () => ({
+      auth,
+      login,
+      logout
+    }),
+    [auth]
+  );
+
+  if (auth === undefined)
+    return (
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <ActivityIndicator size='large' />
+      </View>
+    )
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthContext.Provider value={authData}>
+      <PaperProvider>
+        {auth ?
+          <AppNavigation />
+          :
+          <Login />
+        }
+      </PaperProvider>
+    </AuthContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
