@@ -11,8 +11,7 @@ export default function AccountStack() {
     return (
         <Stack.Navigator
             screenOptions={{
-                headerTintColor: colors.Light,
-                headerStyle: { backgroundColor: colors.dark },
+                headerTintColor: colors.dark,
                 cardStyle: {
                     backgroundColor: colors.Light
                 }
@@ -22,7 +21,8 @@ export default function AccountStack() {
                 name='account'
                 component={Account}
                 options={{
-                    title: 'Cuenta'
+                    title: 'Cuenta',
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>

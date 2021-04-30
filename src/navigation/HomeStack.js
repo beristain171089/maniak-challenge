@@ -11,10 +11,9 @@ export default function HomeStack() {
     return (
         <Stack.Navigator
             screenOptions={{
-                headerTintColor: colors.Light,
-                headerStyle: { backgroundColor: colors.dark },
+                headerTintColor: colors.dark,
                 cardStyle: {
-                    backgroundColor: colors.Light
+                   backgroundColor: colors.Light
                 }
             }}
         >
@@ -22,7 +21,8 @@ export default function HomeStack() {
                 name='home'
                 component={Home}
                 options={{
-                    title: 'Inicio'
+                    title: 'Inicio',
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>

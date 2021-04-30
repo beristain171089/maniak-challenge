@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet, Alert } from 'react-native';
-import { TextInput, Button, } from 'react-native-paper';
+import { StyleSheet, Alert, Text } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
+import { Icon } from 'react-native-elements'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import useAuth from '../../hooks/useAuth';
@@ -12,6 +13,7 @@ export default function LoginForm() {
     const { login } = useAuth();
 
     const [loading, setLoading] = useState(false);
+    const [hidePasswod, setHidePasswod] = useState(true);
 
     const formik = useFormik({
 
@@ -55,10 +57,19 @@ export default function LoginForm() {
             <TextInput
                 label='Contraseña'
                 style={styles.input}
-                secureTextEntry
+                secureTextEntry={hidePasswod}
                 onChangeText={(text) => formik.setFieldValue('password', text)}
                 value={formik.values.password}
                 error={formik.errors.password}
+                right={
+                    <TextInput.Icon name={() =>
+                        <Icon
+                            onPress={() => setHidePasswod(!hidePasswod)}
+                            type='ionicon'
+                            name={hidePasswod ? 'eye-off' : 'eye'}
+                            size={20}
+                        />} />
+                }
             />
             <Button
                 mode='contained'

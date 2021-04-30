@@ -25,3 +25,30 @@ export async function loginApi(formData) {
         return null;
     }
 }
+
+export async function getImages(auth) {
+
+    try {
+
+        const url = `${API_URL}/api/images`;
+
+        const params = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth.token}`
+            }
+        }
+
+        // console.log(params);
+        const response = await fetch(url, params).then(response => response)       
+
+        const result = await response.json();
+
+        return result;
+
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}

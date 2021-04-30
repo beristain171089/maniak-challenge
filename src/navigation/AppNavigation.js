@@ -7,6 +7,7 @@ import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 //Screens
 import HomeStack from './HomeStack';
 import AccountStack from './AccountStack';
+import colors from '../styles/colors';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -61,10 +62,10 @@ function setIcon(route) {
 
 const styles = StyleSheet.create({
     navigation: {
-        backgroundColor: '#000'
+        backgroundColor: colors.dark
     },
     icon: {
         fontSize: 20,
-        color: '#fff'
+        color: colors.Light
     }
 })

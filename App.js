@@ -52,12 +52,7 @@ export default function App() {
     [auth]
   );
 
-  if (auth === undefined)
-    return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-        <ActivityIndicator size='large' />
-      </View>
-    )
+  if (auth === undefined) return null
 
   return (
     <AuthContext.Provider value={authData}>

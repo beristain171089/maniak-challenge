@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Alert, Image, StyleSheet } from 'react-native';
+import StatusBar from '../components/StatusBar';
 import { List } from 'react-native-paper';
 import useAuth from '../hooks/useAuth';
 import logo from '../../assets/logo.png';
+import colors from '../styles/colors';
 
 export default function Account() {
 
@@ -26,22 +28,25 @@ export default function Account() {
     }
 
     return (
-        <View style={styles.container}>
-            <Image
-                style={styles.logo}
-                source={logo}
-                resizeMode='contain'
-            />
-            <List.Section>
-                <List.Subheader>Configuración</List.Subheader>
-                <List.Item
-                    title='Cerrar sesión'
-                    description='Cierra esta sesión e inicie con otra cuenta'
-                    left={(props) => <List.Icon {...props} icon='logout' />}
-                    onPress={logoutAccount}
+        <>
+            <StatusBar backgroundColor={colors.dark} barStyle={'light-content'} />
+            <View style={styles.container}>
+                <Image
+                    style={styles.logo}
+                    source={logo}
+                    resizeMode='contain'
                 />
-            </List.Section>
-        </View>
+                <List.Section>
+                    <List.Subheader>Configuración</List.Subheader>
+                    <List.Item
+                        title='Cerrar sesión'
+                        description='Cierra esta sesión e inicie con otra cuenta'
+                        left={(props) => <List.Icon {...props} icon='logout' />}
+                        onPress={logoutAccount}
+                    />
+                </List.Section>
+            </View>
+        </>
     )
 }
 
